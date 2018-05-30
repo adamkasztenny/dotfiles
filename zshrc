@@ -30,7 +30,7 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 alias tmux="TERM=screen-256color-bce tmux"
 
 alias vi="nvim"
-alias vim="nvim"
+#alias vim="nvim"
 
 source ~/.bash_aliases
 source ~/.bash_functions

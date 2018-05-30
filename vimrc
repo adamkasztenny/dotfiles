@@ -27,7 +27,6 @@ Plugin 'mbbill/undotree',             { 'on': 'UndotreeToggle'   }
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-endwise'
 Plugin 'junegunn/vim-after-object'
-Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'junegunn/vim-fnr'
 Plugin 'majutsushi/tagbar'
 
@@ -38,13 +37,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'mhinz/vim-signify'
 Plugin 'junegunn/gv.vim'
 
-" Ruby
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-rails'
-
-" Autocomplete
-Plugin 'Valloric/YouCompleteMe'
-
 "Syntastic
 Plugin 'vim-syntastic/syntastic'
 " Vim indent guides
@@ -54,6 +46,30 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'jiangmiao/auto-pairs'
+
+Plugin 'guns/vim-clojure-static'
+" Editing stuff for S-expressions (forms, elements...). Alternative to paredit.vim. - https://github.com/guns/vim-sexp
+Plugin 'guns/vim-sexp'
+Plugin 'tpope/vim-sexp-mappings-for-regular-people'
+" REPL - https://github.com/tpope/vim-fireplace
+Plugin 'tpope/vim-fireplace'
+" Rainbow parenthesis - https://github.com/kien/rainbow_parentheses.vim
+Plugin 'kien/rainbow_parentheses.vim'
+
+" Enable Rainbow Parentheses when dealing with Clojure files
+au FileType clojure RainbowParenthesesActivate
+au Syntax * RainbowParenthesesLoadRound
+
+" This should enable Emacs like indentation
+let g:clojure_fuzzy_indent=1
+let g:clojure_align_multiline_strings = 1
+
+" Add some words which should be indented like defn etc: Compojure/compojure-api, midje and schema stuff mostly.
+let g:clojure_fuzzy_indent_patterns=['^GET', '^POST', '^PUT', '^DELETE', '^ANY', '^HEAD', '^PATCH', '^OPTIONS', '^def']
+autocmd FileType clojure setlocal lispwords+=describe,it,testing,facts,fact,provided
+
+" Disable some irritating mappings
+let g:sexp_enable_insert_mode_mappings = 0
 
 " All of your Pluginins must be added before the following line
 call vundle#end()            " required
@@ -85,10 +101,6 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 "if the only window left is nerdtree then close                                 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
                                                                                 
-" Ignore these files when completing                                            
-set wildignore+=*.o,*.obj,.git,*.pyc                                            
-set wildignore+=eggs/**                                                         
-set wildignore+=*.egg-info/**                                                   
 " Disable menu bars                                                             
 :set guioptions-=m  "remove menu bar
 :set guioptions-=T  "remove toolbar

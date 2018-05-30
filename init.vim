@@ -60,12 +60,7 @@ Plug 'morhetz/gruvbox'
 Plug 'rizzatti/dash.vim'
 
 "Clojure Stuff
-Plug 'guns/vim-clojure-static'
-Plug 'guns/vim-clojure-highlight'
-Plug 'tpope/vim-fireplace'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-repeat'
+Plug 'clojure-vim/acid.nvim'
 
 " Tagging is all the rage
 Plug 'ludovicchabant/vim-gutentags'
