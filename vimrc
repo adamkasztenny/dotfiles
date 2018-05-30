@@ -200,7 +200,7 @@ nnoremap <F8> :TagbarToggle<cr>
 let g:tagbar_sort = 0                                                           
                                                                                 
 " <F10> | NERD Tree                                                             
-nnoremap <F10> :NERDTreeToggle<cr>                                              
+nnoremap <leader>n :NERDTreeToggle<cr>                                              
                                                                                 
 " jk | Escaping!                                                                
 inoremap jk <Esc>                                                               
