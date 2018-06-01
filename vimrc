@@ -322,4 +322,7 @@ autocmd FileType clojure setlocal lispwords+=describe,it,testing,facts,fact,prov
 
 " Disable some irritating mappings
 let g:sexp_enable_insert_mode_mappings = 0
-
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
