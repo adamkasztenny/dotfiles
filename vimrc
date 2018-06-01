@@ -1,63 +1,58 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
 " NERDTree stuff
-Plugin 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " AWESOME search file
-Plugin 'junegunn/fzf',        { 'do': './install --all' }
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf',        { 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Colors
-Plugin 'lilydjwg/colorizer'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-airline/vim-airline'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'dracula/vim'
+Plug 'lilydjwg/colorizer'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'flazz/vim-colorschemes'
+Plug 'dracula/vim'
 set t_Co=256
 " Editing stuff with magic
 
-Plugin 'tpope/vim-repeat'
-Plugin 'mbbill/undotree',             { 'on': 'UndotreeToggle'   }
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-endwise'
-Plugin 'junegunn/vim-after-object'
-Plugin 'junegunn/vim-fnr'
-Plugin 'majutsushi/tagbar'
+Plug 'tpope/vim-repeat'
+Plug 'mbbill/undotree',             { 'on': 'UndotreeToggle'   }
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'junegunn/vim-after-object'
+Plug 'junegunn/vim-fnr'
+Plug 'majutsushi/tagbar'
 
-Plugin 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 
 " Git
-Plugin 'tpope/vim-fugitive'
-Plugin 'mhinz/vim-signify'
-Plugin 'junegunn/gv.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
+Plug 'junegunn/gv.vim'
 
 "Syntastic
-Plugin 'vim-syntastic/syntastic'
+Plug 'vim-syntastic/syntastic'
 " Vim indent guides
-Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+Plug 'VundleVim/Vundle.vim'
 
-Plugin 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 
 " Clojure
-Plugin 'guns/vim-clojure-static'
+Plug 'guns/vim-clojure-static'
 " Editing stuff for S-expressions (forms, elements...). Alternative to paredit.vim. - https://github.com/guns/vim-sexp
-Plugin 'guns/vim-sexp'
-Plugin 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " REPL - https://github.com/tpope/vim-fireplace
-Plugin 'tpope/vim-fireplace'
+Plug 'tpope/vim-fireplace'
 " Rainbow parenthesis - https://github.com/kien/rainbow_parentheses.vim
-Plugin 'kien/rainbow_parentheses.vim'
+Plug 'kien/rainbow_parentheses.vim'
 " All of your Pluginins must be added before the following line
-call vundle#end()            " required
+call plug#end()
 
 "" ==========================================================
 "                          Basic Settings
