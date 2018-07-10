@@ -42,16 +42,11 @@ Plug 'VundleVim/Vundle.vim'
 
 Plug 'jiangmiao/auto-pairs'
 
-" Clojure
-Plug 'guns/vim-clojure-static'
-" Editing stuff for S-expressions (forms, elements...). Alternative to paredit.vim. - https://github.com/guns/vim-sexp
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
-" REPL - https://github.com/tpope/vim-fireplace
-Plug 'tpope/vim-fireplace'
-" Rainbow parenthesis - https://github.com/kien/rainbow_parentheses.vim
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+ 
 Plug 'kien/rainbow_parentheses.vim'
-" All of your Pluginins must be added before the following line
+
 call plug#end()
 
 "" ==========================================================
@@ -102,7 +97,7 @@ set shiftround              "  rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         "  show matching <> (html mainly) as well
 set foldmethod=indent       "  allow us to fold on indents
 set foldlevel=99            "  don't fold by default
-set clipboard=unnamedplus
+set clipboard=unnamed
 set splitbelow
 set splitright
 
@@ -322,7 +317,7 @@ autocmd FileType clojure setlocal lispwords+=describe,it,testing,facts,fact,prov
 
 " Disable some irritating mappings
 let g:sexp_enable_insert_mode_mappings = 0
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+"noremap <Up> <Nop>
+"noremap <Down> <Nop>
+"noremap <Left> <Nop>
+"noremap <Right> <Nop>

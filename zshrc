@@ -30,7 +30,6 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 alias tmux="TERM=screen-256color-bce tmux"
 
 alias vi="nvim"
-#alias vim="nvim"
 
 source ~/.bash_aliases
 source ~/.bash_functions
@@ -40,13 +39,13 @@ export NVM_DIR="/home/lucas/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # load tmux by default
-if command -v tmux>/dev/null; then
+ if command -v tmux>/dev/null; then
   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
 fi
 
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/lucas/.sdkman"
-[[ -s "/Users/lucas/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/lucas/.sdkman/bin/sdkman-init.sh"
+export PATH="$HOME/.cargo/bin:$PATH"
+
+export GOPATH=$HOME/dev/go
