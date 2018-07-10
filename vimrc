@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
 " NERDTree stuff
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'arcticicestudio/nord-vim'
 
 " AWESOME search file
 Plug 'junegunn/fzf',        { 'do': './install --all' }
@@ -14,7 +15,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 Plug 'flazz/vim-colorschemes'
 Plug 'dracula/vim'
-set t_Co=256
 " Editing stuff with magic
 
 Plug 'tpope/vim-repeat'
@@ -52,14 +52,15 @@ call plug#end()
 "" ==========================================================
 "                          Basic Settings
 "" ==========================================================
-set guifont=DroidSansMono_Nerd_Font:h16
+"set guifont=DroidSansMono_Nerd_Font:h16
+set anti enc=utf-8
+set guifont=Source\ Code\ Pro\ Bold\ 11
 
 syntax on                     " syntax highlighing
 filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
 set relativenumber            " Display relative line numbers
 set numberwidth=2             " using only 2 column (and 2 space) while possible
-set background=dark           " We are using dark background in vim
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
@@ -79,6 +80,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 :set guioptions-=L  "remove left-hand scroll bar
 ""  Moving Around/Editing
 set cursorline              "  have a line indicate the cursor location
+set background=dark
 set ruler                   "  show the cursor position all the time
 set nostartofline           "  Avoid moving cursor to BOL when jumping around
 set virtualedit=block       "  Let cursor move past the last char in <C-v> mode
@@ -115,9 +117,12 @@ set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.
 set ruler                   " Show some info, even without statuslines.
 set laststatus=2            " Always show statusline, even if only 1 window.
 set statusline=%<[%n]\ %F\ %m%r%y\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}\ %=%-14.(%l,%c%V%)\ %P
+colorscheme nord
 
-colorscheme dracula
-
+let g:nord_italic_comments = 1
+let g:nord_comment_brightness = 12
+let g:nord_uniform_diff_background = 1
+let g:nord_cursor_line_number_background = 1
 
 "Nerdtree git plugin
 let g:NERDTreeIndicatorMapCustom = {
