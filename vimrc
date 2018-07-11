@@ -3,7 +3,6 @@ call plug#begin('~/.vim/plugged')
 " NERDTree stuff
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'arcticicestudio/nord-vim'
 
 " AWESOME search file
 Plug 'junegunn/fzf',        { 'do': './install --all' }
@@ -14,7 +13,7 @@ Plug 'lilydjwg/colorizer'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 Plug 'flazz/vim-colorschemes'
-Plug 'dracula/vim'
+Plug 'arcticicestudio/nord-vim'
 " Editing stuff with magic
 
 Plug 'tpope/vim-repeat'
@@ -32,8 +31,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'junegunn/gv.vim'
 
-"Syntastic
-Plug 'vim-syntastic/syntastic'
+"lint
+Plug 'w0rp/ale'
+
 " Vim indent guides
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -42,19 +42,33 @@ Plug 'VundleVim/Vundle.vim'
 
 Plug 'jiangmiao/auto-pairs'
 
+"Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
- 
+"Terraform plugins
+Plug 'hashivim/vim-terraform'
+Plug 'vim-syntastic/syntastic'
+Plug 'juliosueiras/vim-terraform-completion'
+
 Plug 'kien/rainbow_parentheses.vim'
+
+"Plug 'Shougo/deoplete.nvim'
+"Plug 'roxma/nvim-yarp'
+"Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Valloric/YouCompleteMe'
+
+"Code Snips
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
 "" ==========================================================
 "                          Basic Settings
 "" ==========================================================
-"set guifont=DroidSansMono_Nerd_Font:h16
+set guifont=DroidSansMono_Nerd_Font:h16
 set anti enc=utf-8
-set guifont=Source\ Code\ Pro\ Bold\ 11
+"set guifont=Source\ Code\ Pro\ Bold\ 11
 
 syntax on                     " syntax highlighing
 filetype on                   " try to detect filetypes
@@ -179,29 +193,9 @@ nnoremap [b :bprev<cr>
 nnoremap ]t :tabn<cr>
 nnoremap [t :tabp<cr>
 
-"" ----------------------------------------------------------------------------
-"" #gi / #gpi | go to next/previous indentation level
-"" ----------------------------------------------------------------------------
-function! s:go_indent(times, dir)
-    for _ in range(a:times)
-        let l = line('.')
-        let x = line('$')
-        let i = s:indent_len(getline(l))
-        let e = empty(getline(l))
-
-        while l >= 1 && l <= x
-            let line = getline(l + a:dir)
-            let l += a:dir
-            if s:indent_len(line) != i || empty(line) != e
-                break
-            endif
-        endwhile
-        let l = min([max([1, l]), x])
-        execute 'normal! '. l .'G^'
-    endfor
-endfunction
-nnoremap <silent> gi :<c-u>call <SID>go_indent(v:count1, 1)<cr>
-nnoremap <silent> gpi :<c-u>call <SID>go_indent(v:count1, -1)<cr>
+set omnifunc=syntaxcomplete#Complete
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
 " ----------------------------------------------------------------------------
 " :Root | Change directory to the root of the Git repository
@@ -220,7 +214,7 @@ command! Root call s:root()
 " ----------------------------------------------------------------------------
 " vim-fugitive
 " ----------------------------------------------------------------------------
-nmap     <Leader>g :Gstatus<CR>gg<c-n>
+nmap     <Leader>gs :Gstatus<CR>gg<c-n>
 nnoremap <Leader>d :Gdiff<CR>
 nnoremap <Leader>b :Gblame<CR>
 
@@ -245,6 +239,9 @@ nnoremap <silent> <Leader><Enter>  :Buffers<CR>
 nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
 nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
 nnoremap <silent> <Leader>`        :Marks<CR>
+nnoremap <silent> <Leader>gb       :GoBuild<CR>
+nnoremap <silent> <Leader>gr       :GoRun<CR>
+nnoremap <silent> <Leader>gt       :GoTest<CR>
 
 function! s:fzf_statusline()
   " Override statusline as you like
@@ -278,23 +275,6 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
-"<Ctrl-X> -- cut (goto visual mode and cut)
-imap <C-X> <C-O>vgG
-vmap <C-X> "*x<Esc>i
-
-"<Ctrl-C> -- copy (goto visual mode and copy)
-imap <C-C> <C-O>vgG
-vmap <C-C> "*y<Esc>i
-
-"<Ctrl-A> -- copy all
-imap <C-A> <C-O>gg<C-O>gH<C-O>G<Esc>
-vmap <C-A> <Esc>gggH<C-O>G<Esc>i
-
-"<Ctrl-V> -- paste
-nm \\paste\\ "=@*.'xy'<CR>gPFx"_2x:echo<CR>
-imap <C-V> x<Esc>\\paste\\"_s
-vmap <C-V> "-cx<Esc>\\paste\\"_x
-
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -307,22 +287,58 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" Clojure setup
-" Enable Rainbow Parentheses when dealing with Clojure files
-au FileType clojure RainbowParenthesesActivate
-au Syntax * RainbowParenthesesLoadRound
-
-" This should enable Emacs like indentation
-let g:clojure_fuzzy_indent=1
-let g:clojure_align_multiline_strings = 1
-
-" Add some words which should be indented like defn etc: Compojure/compojure-api, midje and schema stuff mostly.
-let g:clojure_fuzzy_indent_patterns=['^GET', '^POST', '^PUT', '^DELETE', '^ANY', '^HEAD', '^PATCH', '^OPTIONS', '^def']
-autocmd FileType clojure setlocal lispwords+=describe,it,testing,facts,fact,provided
-
 " Disable some irritating mappings
 let g:sexp_enable_insert_mode_mappings = 0
 "noremap <Up> <Nop>
 "noremap <Down> <Nop>
 "noremap <Left> <Nop>
 "noremap <Right> <Nop>
+
+"go config
+let g:go_fmt_command = "goimports"
+
+"ultisnips
+"let g:UltiSnipsExpandTrigger="<c-j>"
+"let g:UltiSnipsJumpForwardTrigger="<c-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+function! g:UltiSnips_Complete()
+  call UltiSnips#ExpandSnippet()
+  if g:ulti_expand_res == 0
+    if pumvisible()
+      return "\<C-n>"
+    else
+      call UltiSnips#JumpForwards()
+      if g:ulti_jump_forwards_res == 0
+        return "\<TAB>"
+      endif
+    endif
+  endif
+  return ""
+endfunction
+
+function! g:UltiSnips_Reverse()
+  call UltiSnips#JumpBackwards()
+  if g:ulti_jump_backwards_res == 0
+    return "\<C-P>"
+  endif
+
+  return ""
+endfunction
+
+
+if !exists("g:UltiSnipsJumpForwardTrigger")
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+endif
+
+if !exists("g:UltiSnipsJumpBackwardTrigger")
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+endif
+
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
+au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
+
+
+" vim terraform
+let g:terraform_align=1
+

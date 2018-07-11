@@ -49,3 +49,4 @@ source $ZPLUG_HOME/init.zsh
 export PATH="$HOME/.cargo/bin:$PATH"
 
 export GOPATH=$HOME/dev/go
+export PATH=$PATH:$GOPATH/bin
