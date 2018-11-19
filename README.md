@@ -1,6 +1,5 @@
 # dotfiles
 
-*neovim
-*ohmyzsh
-*tmux
-*vimrc
+* zplug
+* tmux
+* init.vim
