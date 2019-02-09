@@ -48,6 +48,8 @@ Plug 'honza/vim-snippets'
 "ident line
 Plug 'Yggdroot/indentLine'
 
+
+let g:python3_host_prog = '/Users/lucas/.pyenv/shims/python3.7'
 call plug#end()
 
 " Initialize plugin system
@@ -163,7 +165,6 @@ set ruler                   " Show some info, even without statuslines.
 set laststatus=2            " Always show statusline, even if only 1 window.
 set statusline=%<[%n]\ %F\ %m%r%y\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}\ %=%-14.(%l,%c%V%)\ %P
 
-let g:python3_host_prog = '/usr/local/bin/python3'
 
 """ Map Keys
 nnoremap <leader>w :w!<CR>
