@@ -37,7 +37,15 @@ Plug 'mhartington/oceanic-next'
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 " Track the engine.
 Plug 'SirVer/ultisnips'
@@ -48,8 +56,14 @@ Plug 'honza/vim-snippets'
 "ident line
 Plug 'Yggdroot/indentLine'
 
+Plug 'rizzatti/dash.vim'
 
-let g:python3_host_prog = '/Users/lucas/.pyenv/shims/python3.7'
+Plug 'tpope/vim-surround'
+
+Plug 'majutsushi/tagbar'
+
+
+let g:python3_host_prog = '/Users/lucas/.pyenv/shims/python3.6'
 call plug#end()
 
 " Initialize plugin system
@@ -61,12 +75,14 @@ let g:terraform_fmt_on_save=1
 "deoplete
 let g:deoplete#enable_at_startup = 1
 
-let g:deoplete#omni_patterns = {}
+if (&ft=='terraform' || &ft=='tf')
+  let g:deoplete#omni_patterns = {}
 
-call deoplete#custom#option('omni_patterns', {
-\ 'complete_method': 'omnifunc',
-\ 'terraform': '[^ *\t"{=$]\w*',
-\})
+  call deoplete#custom#option('omni_patterns', {
+        \ 'complete_method': 'omnifunc',
+        \ 'terraform': '[^ *\t"{=$]\w*',
+        \})
+endif
 
 call deoplete#initialize()
 
@@ -168,6 +184,7 @@ set statusline=%<[%n]\ %F\ %m%r%y\ %{exists('g:loaded_fugitive')?fugitive#status
 
 """ Map Keys
 nnoremap <leader>w :w!<CR>
+nnoremap <leader>q :q!<CR>
 nnoremap <leader>l <C-w>
 nnoremap <leader>L <C-W>
 
@@ -177,6 +194,9 @@ autocmd BufWritePre * %s/\s\+$//e
 " <F10> | NERD Tree
 nnoremap <F10> :NERDTreeToggle<cr>
 nnoremap <leader>n :NERDTreeToggle<cr>
+
+nmap <F8> :TagbarToggle<CR>
+
 
 " Make Y behave like other capitals
 nnoremap Y y$
@@ -221,9 +241,6 @@ nnoremap <silent> <Leader><Enter>  :Buffers<CR>
 nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
 nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
 nnoremap <silent> <Leader>`        :Marks<CR>
-nnoremap <silent> <Leader>gb       :GoBuild<CR>
-nnoremap <silent> <Leader>gr       :GoRun<CR>
-nnoremap <silent> <Leader>gt       :GoTest<CR>
 
 function! s:fzf_statusline()
   " Override statusline as you like
@@ -238,6 +255,44 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 " Go Configuration {{{
 " ============================================================================
 let g:go_fmt_command = "goimports"
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+  \ }
+
+
+nnoremap <silent> <Leader>gb       :GoBuild<CR>
+nnoremap <silent> <Leader>gr       :GoRun<CR>
+nnoremap <silent> <Leader>gt       :GoTest<CR>
+nnoremap <silent><Leader>t         :GoDecls<CR>
+nnoremap <silent><Leader>gdf       :GoDefs<CR>
+
+let g:go_term_mode = "split"
+let g:go_term_height = 60
+let g:go_term_width = 60
 
 " ============================================================================
 " Disable Arrows {{{
@@ -246,3 +301,4 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+
