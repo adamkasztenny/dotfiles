@@ -18,7 +18,6 @@ export VISUAL=vim
 
 export SSH_KEY_PATH="$HOME/.ssh"
 export AWS_CONFIG_FILE="$HOME/.aws/config"
-export AWS_DEFAULT_PROFILE="default"
 export GPG_TTY=$(tty)
 
 # set the correct term with TMUX
@@ -79,14 +78,13 @@ zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-dir
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion::complete:*' cache-path $ZSH_CACHE_DIR
 
-bindkey -e "use emacs key bindings"
-bindkey '^a' beginning-of-line
-bindkey '^e' end-of-line
-bindkey '^r' history-incremental-search-backward
+bindkey -v
 
 if [[ ! -d "$ZPLUG_HOME" ]]; then
     echo "Installing zplug"
     curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+    # zplug.sh domain has expired
+    # curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
     source "$ZPLUG_HOME/init.zsh"
     zplug update
 else
@@ -118,6 +116,8 @@ zplug "MichaelAquilina/zsh-you-should-use"
 zplug "voronkovich/gitignore.plugin.zsh"
 
 zplug "plugins/git",   from:oh-my-zsh
+
+zplug "plugins/vi-mode",   from:oh-my-zsh
 
 #theme
 zplug "b-ryan/powerline-shell"
@@ -159,8 +159,9 @@ alias tmux="TERM=screen-256color-bce tmux"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export GOPATH="/Users/lucas/dev/go"
 export GOROOT="/usr/local/opt/go/libexec"
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Wireshark.app/Contents/MacOS:/bin:/bin"
 
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Wireshark.app/Contents/MacOS:/bin:/bin"
+export PATH="$PATH:$GOPATH/bin"
 export PATH="$HOME/.rbenv/bin:$PATH"
 
 if [[ $(command -v rbenv) ]]; then
@@ -172,3 +173,6 @@ fi
 [[ -f "${HOME}/.aliases" ]] && source "${HOME}/.aliases"
 [[ -f "${HOME}/.completions" ]] && source "${HOME}/.completions"
 [[ -f "${HOME}/.extra" ]] && source "${HOME}/.extra"
+[[ -f "${HOME}/.private" ]] && source "${HOME}/.private"
+
+eval "$(pyenv init -)"
