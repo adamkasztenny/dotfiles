@@ -1,0 +1,30 @@
+alias git=hub
+
+###python
+alias pup='pip install -r requirements.txt'
+
+##virtual env
+alias venv='APP_NAME=`basename "$PWD"`&& source ~/.virtualenv/$APP_NAME/bin/activate'
+
+alias cvenv='APP_NAME=`basename "$PWD"`&& rm -rf ~/.virtualenv/$APP_NAME && virtualenv -p `which python3` ~/.virtualenv/$APP_NAME  && ln -sf /System/Library/Frameworks/Python.framework/Versions/3.6/Extras/lib/python/OpenSSL ~/.virtualenv/$APP_NAME/lib/python3.6/ && source ~/.virtualenv/$APP_NAME/bin/activate'
+
+alias cvvenv='APP_NAME=`basename $(dirname "$PWD")`&& rm -rf ~/.virtualenv/$APP_NAME && virtualenv -p `which python3` ~/.virtualenv/$APP_NAME && source ~/.virtualenv/$APP_NAME/bin/activate'
+alias ocvenv='APP_NAME=`basename "$PWD"`&& rm -rf ~/.virtualenv/$APP_NAME && virtualenv -p `which python2.7` ~/.virtualenv/$APP_NAME  && ln -sf /System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/OpenSSL ~/.virtualenv/$APP_NAME/lib/python2.7/ && source ~/.virtualenv/$APP_NAME/bin/activate'
+
+alias jvenv=jump_and_venv
+
+#ssl
+alias sslenc='openssl aes-256-cbc -salt -a'
+alias ssldec='openssl aes-256-cbc -d -a'
+
+#clojure
+alias clt='lein test'
+alias clr='lein repl'
+alias clat='lein auto test'
+alias cld='lein deps'
+
+#aws utils
+alias awspui='__foo() { unset -f $0; aws ec2 describe-instances --filters 'Name=tag:Name,Values=$0*' --output text --query 'Reservations[*].Instances[*].PublicIpAddress'; }; __foo()'
+
+#go notifier
+alias gonotifier='./gonotifier && fswatch . ./gonotifier'
