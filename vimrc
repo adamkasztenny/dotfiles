@@ -19,7 +19,6 @@ Plug 'juliosueiras/vim-terraform-completion'
 Plug 'Yggdroot/indentLine'
 Plug 'rizzatti/dash.vim'
 Plug 'majutsushi/tagbar'
-Plug 'fatih/molokai'
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
@@ -53,11 +52,6 @@ filetype plugin indent on
 
 set ttyfast
 
-if !has('nvim')
-  set ttymouse=xterm2
-  set ttyscroll=3
-endif
-
 set laststatus=2
 set encoding=utf-8              " Set default encoding to UTF-8
 set autoread                    " Automatically reread changed files without asking me anything
@@ -89,10 +83,10 @@ set nocursorline
 set updatetime=300
 set pumheight=10             " Completion window max size
 set conceallevel=2           " Concealed text is completely hidden
-set shortmess+=c   " Shut off completion messages
+set shortmess+=c             " Shut off completion messages
 set noerrorbells
-set ruler                   "  show the cursor position all the time
-set title                     " show title in console title bar
+set ruler                    " Show the cursor position all the time
+set title                    " Show title in console title bar
 
 set lazyredraw
 
@@ -128,8 +122,8 @@ set t_Co=256
 set background=dark
 let g:molokai_original = 1
 let g:rehash256 = 1
-colorscheme alduin
-let g:airline_theme='alduin'
+colorscheme dracula
+let g:airline_theme='dracula'
 
 
 """ mapping utils
@@ -142,7 +136,6 @@ nnoremap <leader>L <C-W>
 " NERD Tree
 nnoremap <F10> :NERDTreeToggle<cr>
 nnoremap <leader>n :NERDTreeToggle<cr>
-noremap <Leader>f :NERDTreeFind<cr>
 let NERDTreeShowHidden=1
 
 " Tagbar
@@ -219,6 +212,7 @@ nnoremap <silent> <Leader>gi       :GoInfo<CR>
 nnoremap <silent> <Leader>gl       :GoMetaLinter<CR>
 nnoremap <silent> <Leader>gD       :GoDeclsDir<CR>
 nnoremap <silent> <Leader>gc       :GoCoverage<CR>
+nnoremap <silent> <Leader>gg       :GoDef<CR>
 
 
 " ----------------------------------------------------------------------------
@@ -250,7 +244,6 @@ imap <C-b> <esc>:<C-u>FzfHistory<cr>
 " search across files in the current directory
 nmap <C-p> :FzfFiles<cr>
 imap <C-p> <esc>:<C-u>FzfFiles<cr>
-
 
 " ============================================================================
 " Go Configuration {{{
@@ -316,3 +309,13 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 0
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 
 " vim: sw=2 sw=2 et
+
+" ==========CTRLSF
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
