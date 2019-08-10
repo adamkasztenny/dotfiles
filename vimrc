@@ -40,6 +40,9 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'dyng/ctrlsf.vim'
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
 call plug#end()
 
@@ -319,3 +322,16 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+
+
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#deoplete_onmni_patterns = get(g:, 'deoplete#force_omni_input_patterns', {})
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+let g:deoplete#sources = {}
+let g:deoplete#sources._=['omni', 'buffer', 'member', 'tag', 'ultisnips', 'file']
+
+" Setup python
+let g:python3_host_prog = '/Users/lucas/.pyenv/shims/python3'

@@ -2,8 +2,8 @@ call plug#begin('~/.vim/plugged')
 set nocompatible
 
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-"Plug 'w0rp/ale'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'w0rp/ale'
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'sbdchd/neoformat'
@@ -19,6 +19,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 Plug 'dyng/ctrlsf.vim'
 Plug 'mbbill/undotree'
+Plug 'majutsushi/tagbar'
 
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
@@ -37,7 +38,7 @@ Plug 'Shougo/denite.nvim'
 
 Plug 'fatih/vim-go', { 'tag': '*' }
 Plug 'sebdah/vim-delve'
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+"Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -52,6 +53,8 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'ayu-theme/ayu-vim'
 Plug 'kaicataldo/material.vim'
 Plug 'rakr/vim-one'
+Plug 'Yggdroot/indentLine'
+Plug 'romainl/flattened'
 
 let g:python3_host_prog = '/Users/lucas/.pyenv/shims/python3'
 call plug#end()
@@ -140,18 +143,22 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-set background=dark
+"set background=dark
 
 " Material colorscheme settings
 let g:material_theme_style = 'dark'
 
 " Ayu colorscheme settings
 let ayucolor = 'dark'
+"let ayucolor="light"
 
 " One colorscheme settings
 let g:one_allow_italics = 1
 
-colorscheme one
+"colorscheme one
+"":color flattened_light
+
+colorscheme flattened_light
 
 " Override the search highlight color with a combination that is easier to
 " read. The default PaperColor is dark green backgroun with black foreground.
@@ -174,33 +181,33 @@ set splitright
 nnoremap <leader>v :vsplit<cr>
 nnoremap <leader>h :split<cr>
 
-"----------------------------------------------
-" Plugin: Shougo/deoplete.nvim
-"----------------------------------------------
-if has('nvim')
-    " Enable deoplete on startup
-    let g:deoplete#enable_at_startup = 1
-endif
-
-" Disable deoplete when in multi cursor mode
-function! Multiple_cursors_before()
-    let b:deoplete_disable_auto_complete = 1
-endfunction
-
-function! Multiple_cursors_after()
-    let b:deoplete_disable_auto_complete = 0
-endfunction
-
-""" mapping utils
-
-let g:deoplete#sources#go#gocode_binary = $HOME.'dev/go/bin/gocode'
-let g:deoplete#sources#go#source_importer = 1
-
-call deoplete#custom#option({
-\ 'auto_complete_delay': 0,
-\ 'auto_refresh_delay': 10,
-\})
-
+""----------------------------------------------
+"" Plugin: Shougo/deoplete.nvim
+""----------------------------------------------
+"if has('nvim')
+"    " Enable deoplete on startup
+"    let g:deoplete#enable_at_startup = 1
+"endif
+"
+"" Disable deoplete when in multi cursor mode
+"function! Multiple_cursors_before()
+"    let b:deoplete_disable_auto_complete = 1
+"endfunction
+"
+"function! Multiple_cursors_after()
+"    let b:deoplete_disable_auto_complete = 0
+"endfunction
+"
+"""" mapping utils
+"
+"let g:deoplete#sources#go#gocode_binary = $HOME.'dev/go/bin/gocode'
+"let g:deoplete#sources#go#source_importer = 1
+"
+"call deoplete#custom#option({
+"\ 'auto_complete_delay': 0,
+"\ 'auto_refresh_delay': 10,
+"\})
+"
 nnoremap <leader>w :w!<CR>
 nnoremap <leader>q :q!<CR>
 nnoremap <leader>l <C-w>
@@ -423,6 +430,9 @@ let g:neomake_warning_sign = {'text': '∆', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
 let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 
+" When writing a buffer (no delay).
+call neomake#configure#automake('w')
+
 " ============================================================================
 " FZF {{{
 " ============================================================================
@@ -477,3 +487,21 @@ cnoreabbrev Qall qall
 
 " When writing a buffer (no delay).
 call neomake#configure#automake('w')
+
+" IndentLine {{
+let g:indentLine_enabled = 1
+let g:indentLine_char = ''
+let g:indentLine_first_char = ''
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setColors = 0
+" }}
+
+if has('persistent_undo')
+    set undodir="$HOME/.undodir"
+    set undofile
+endif
+
+"terrafrom setup
+let g:terraform_fmt_on_save=1
+let g:terraform_commentstring='//%s'
+let g:terraform_align=1

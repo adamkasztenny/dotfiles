@@ -23,8 +23,19 @@ alias clr='lein repl'
 alias clat='lein auto test'
 alias cld='lein deps'
 
-#aws utils
-alias awspui='__foo() { unset -f $0; aws ec2 describe-instances --filters 'Name=tag:Name,Values=$0*' --output text --query 'Reservations[*].Instances[*].PublicIpAddress'; }; __foo()'
 
 #go notifier
 alias gonotifier='./gonotifier && fswatch . ./gonotifier'
+
+vi=nvim
+vim=nvim
+
+alias aws_search_private_ip=f_aws_private_ip
+alias aws_ssh=f_aws_ssh
+alias aws_instances_id=f_aws_instance_id
+alias aws_list_instances=f_aws_list_instances
+alias aws_delete_instance_profile=f_aws_delete_instance_profile
+
+alias hrz_magic='ecrlogin hrz-dev && make build && make push'
+
+

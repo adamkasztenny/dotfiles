@@ -13,8 +13,8 @@ alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
 
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=nvim
+export VISUAL=nvim
 
 export SSH_KEY_PATH="$HOME/.ssh"
 export AWS_CONFIG_FILE="$HOME/.aws/config"
@@ -176,3 +176,5 @@ fi
 [[ -f "${HOME}/.private" ]] && source "${HOME}/.private"
 
 eval "$(pyenv init -)"
+alias vim=nvim
+alias vi=nvim
