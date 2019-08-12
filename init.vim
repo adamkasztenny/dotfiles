@@ -1,73 +1,47 @@
 call plug#begin('~/.vim/plugged')
 set nocompatible
 
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'w0rp/ale'
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
 Plug 'sbdchd/neoformat'
-
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 Plug 'dyng/ctrlsf.vim'
 Plug 'mbbill/undotree'
 Plug 'majutsushi/tagbar'
-
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
-
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary' " g cc to comment gcc to uncomment
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-scriptease'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/denite.nvim'
-
 Plug 'fatih/vim-go', { 'tag': '*' }
 Plug 'sebdah/vim-delve'
-"Plug 'zchee/deoplete-go', { 'do': 'make'}
-
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
-Plug 'scrooloose/nerdtree'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'neomake/neomake'
-
-" Colors
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'altercation/vim-colors-solarized'
-Plug 'ayu-theme/ayu-vim'
-Plug 'kaicataldo/material.vim'
-Plug 'rakr/vim-one'
-Plug 'Yggdroot/indentLine'
-Plug 'romainl/flattened'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 let g:python3_host_prog = '/Users/lucas/.pyenv/shims/python3'
 call plug#end()
 
-" Enable snipMate compatibility feature.
-"let g:neosnippet#enable_snipmate_compatibility = 1
-
-" Tell Neosnippet about the other snippets
-"let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
-
 "----------------------------------------------
 " General settings
 "----------------------------------------------
+" COC
+set hidden " if hidden is not set, TextEdit might fail.
+set nobackup
+set nowritebackup
+set cmdheight=2
+set shortmess+=c
+set signcolumn=yes
+""COC
+
 set autoindent                    " take indent for new line from previous line
 set smartindent                   " enable smart indentation
 set autoread                      " reload file if the file changes on the disk
@@ -75,7 +49,7 @@ set autowrite                     " write when switching buffers
 set autowriteall                  " write on :quit
 set clipboard=unnamedplus
 set colorcolumn=120                " highlight the 80th column as an indicator
-set completeopt-=preview          " remove the horrendous preview window
+" set completeopt-=preview          " remove the horrendous preview window
 set cursorline                    " highlight the current line for the cursor
 set encoding=utf-8
 set expandtab                     " expands tabs to spaces
@@ -89,26 +63,14 @@ set novisualbell                  " I said, no bells!
 set number                        " show number ruler
 set relativenumber                " show relative numbers in the ruler
 set ruler
-set formatoptions=tcqronj         " set vims text formatting options
+" set formatoptions=tcqronj         " set vims text formatting options
 set softtabstop=2
 set tabstop=2
 set title                         " let vim set the terminal title
-set updatetime=100                " redraw the status bar often
+set updatetime=300                " redraw the status bar often
 
-" neovim specific settings
-"if has('nvim')
-"    " Set the Python binaries neovim is using. Please note that you will need to
-"    " install the neovim package for these binaries separately like this for
-"    " example:
-"    " pip3.6 install -U neovim
-"    let g:python_host_prog = '/usr/local/bin/python2'
-"    let g:python3_host_prog = '/usr/local/bin/python3'
-"endif
-
-" Enable mouse if possible
-if has('mouse')
-    set mouse=a
-endif
+syntax on
+colorscheme onedark
 
 " Allow vim to set a custom font or color for a word
 syntax enable
@@ -128,47 +90,9 @@ nnoremap <space> zz
 " increase max memory to show syntax highlighting for large files
 set maxmempattern=40000
 
-"----------------------------------------------
-" Colors
-"----------------------------------------------
-if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-
-"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 if (has("termguicolors"))
   set termguicolors
 endif
-
-"set background=dark
-
-" Material colorscheme settings
-let g:material_theme_style = 'dark'
-
-" Ayu colorscheme settings
-let ayucolor = 'dark'
-"let ayucolor="light"
-
-" One colorscheme settings
-let g:one_allow_italics = 1
-
-"colorscheme one
-"":color flattened_light
-
-colorscheme flattened_light
-
-" Override the search highlight color with a combination that is easier to
-" read. The default PaperColor is dark green backgroun with black foreground.
-"
-" Reference:
-" - http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
-highlight Search guibg=DeepPink4 guifg=White ctermbg=53 ctermfg=White
-
-" Toggle background with <leader>bg
-map <leader>bg :let &background = (&background == "dark"? "light" : "dark")<cr>
 
 "----------------------------------------------
 " Splits
@@ -180,56 +104,12 @@ set splitright
 " Creating splits
 nnoremap <leader>v :vsplit<cr>
 nnoremap <leader>h :split<cr>
+nnoremap <leader>n :Explore<cr>
 
-""----------------------------------------------
-"" Plugin: Shougo/deoplete.nvim
-""----------------------------------------------
-"if has('nvim')
-"    " Enable deoplete on startup
-"    let g:deoplete#enable_at_startup = 1
-"endif
-"
-"" Disable deoplete when in multi cursor mode
-"function! Multiple_cursors_before()
-"    let b:deoplete_disable_auto_complete = 1
-"endfunction
-"
-"function! Multiple_cursors_after()
-"    let b:deoplete_disable_auto_complete = 0
-"endfunction
-"
-"""" mapping utils
-"
-"let g:deoplete#sources#go#gocode_binary = $HOME.'dev/go/bin/gocode'
-"let g:deoplete#sources#go#source_importer = 1
-"
-"call deoplete#custom#option({
-"\ 'auto_complete_delay': 0,
-"\ 'auto_refresh_delay': 10,
-"\})
-"
 nnoremap <leader>w :w!<CR>
 nnoremap <leader>q :q!<CR>
 nnoremap <leader>l <C-w>
 nnoremap <leader>L <C-W>
-
-
-let g:tmux_navigator_no_mappings = 1
-let g:tmux_navigator_save_on_switch = 1
-
-" Move between splits with ctrl+h,j,k,l
-nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr><Paste>
-
-
-" NERD Tree
-nnoremap <F10> :NERDTreeToggle<cr>
-nnoremap <leader>n :NERDTreeToggle<cr>
-let NERDTreeShowHidden=1
-
 
 " Move between buffers with Shift + arrow key...
 nnoremap <S-Left> :bprevious<cr>
@@ -336,7 +216,7 @@ nnoremap <silent> <Leader>gi       :GoInfo<CR>
 nnoremap <silent> <Leader>gl       :GoMetaLinter<CR>
 nnoremap <silent> <Leader>gD       :GoDeclsDir<CR>
 nnoremap <silent> <Leader>gc       :GoCoverage<CR>
-nnoremap <silent> <Leader>gg :GoDef<CR>
+nnoremap <silent> <Leader>gg       :GoDef<CR>
 
 "----------------------------------------------
 " Plugin: bling/vim-airline
@@ -361,51 +241,12 @@ endif
 let g:airline_symbols.branch = ''
 let g:airline_symbols.maxlinenr = ''
 
-"----------------------------------------------
-" Plugin: christoomey/vim-tmux-navigator
-"----------------------------------------------
-" tmux will send xterm-style keys when its xterm-keys option is on.
-if &term =~ '^screen'
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
-endif
-
-" Tmux vim integration
-let g:tmux_navigator_no_mappings = 1
-let g:tmux_navigator_save_on_switch = 1
-
-" ----------------------------------------------------------------------------
-" undotree
-" ----------------------------------------------------------------------------
-"let g:undotree_WindowLayout = 2
-nnoremap <F9> :UndotreeToggle<CR>
-
-" Unselect the search result
-map <Leader><Space> :noh<CR>
-
 " ----------------------------------------------------------------------------
 " vim-fugitive
 " ----------------------------------------------------------------------------
 nmap     <Leader>g :Gstatus<CR>gg<c-n>
 nnoremap <Leader>d :Gdiff<CR>
 nnoremap <Leader>b :Gblame<CR>
-
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
 if has('conceal')
@@ -428,7 +269,7 @@ map <Leader><Space> :noh<CR>
 let g:neomake_error_sign   = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
 let g:neomake_warning_sign = {'text': '∆', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
-let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
+let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 
 " When writing a buffer (no delay).
 call neomake#configure#automake('w')
@@ -472,26 +313,13 @@ inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 :set guioptions-=r  "remove right-hand scroll bar
 :set guioptions-=L  "remove left-hand scroll bar
 
-
-" Fix some common typos
-cnoreabbrev W! w!
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qall qall
-
 " When writing a buffer (no delay).
 call neomake#configure#automake('w')
 
 " IndentLine {{
 let g:indentLine_enabled = 1
-let g:indentLine_char = ''
-let g:indentLine_first_char = ''
+let g:indentLine_char = '¦'
+let g:indentLine_first_char = '¦'
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
 " }}
@@ -505,3 +333,70 @@ endif
 let g:terraform_fmt_on_save=1
 let g:terraform_commentstring='//%s'
 let g:terraform_align=1
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+"netrw setup
+let g:netrw_banner = 0
+let g:netrw_keepdir = 0
+
