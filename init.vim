@@ -26,6 +26,10 @@ Plug 'neomake/neomake'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'jodosha/vim-godebug'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
 
 let g:python3_host_prog = '/Users/lucas/.pyenv/shims/python3'
 call plug#end()
@@ -396,7 +400,9 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-"netrw setup
-let g:netrw_banner = 0
-let g:netrw_keepdir = 0
-
+" NERDTREE
+"if the only window left is nerdtree then close
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+nnoremap <F10> :NERDTreeToggle<cr>	nnoremap <F10> :NERDTreeToggle<cr>
+nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <silent> <expr> <Leader>s (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"

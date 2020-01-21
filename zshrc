@@ -1,8 +1,8 @@
 export ZPLUG_HOME=/usr/local/opt/zplug
 
 # history settings
-export HISTSIZE=100000
-export SAVEHIST=100000
+export HISTSIZE=10000000
+export SAVEHIST=10000000
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups
 export HISTFILE="/Users/lucas/.zsh_history"
@@ -50,7 +50,7 @@ setopt correct                  # try to correct spelling of commands
 setopt extended_glob            # activate complex pattern globbing
 setopt glob_dots                # include dotfiles in globbing
 setopt print_exit_value         # print return value if non-zero
-setopt no_beep # Disable sound
+setopt no_beep                  # Disable sound
 setopt prompt_subst
 
 unsetopt beep                   # no bell on error
@@ -83,8 +83,6 @@ bindkey -v
 if [[ ! -d "$ZPLUG_HOME" ]]; then
     echo "Installing zplug"
     curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-    # zplug.sh domain has expired
-    # curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
     source "$ZPLUG_HOME/init.zsh"
     zplug update
 else
@@ -94,34 +92,26 @@ fi
 fpath=("$DOTFILES/zsh/completions" $fpath)
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
-
 zplug "creationix/nvm", use:nvm.sh
 zplug "tj/git-extras", use:"etc/git-extras-completion.zsh", defer:3, if:"[[ $(command -v git) ]]"
 zplug "tmuxinator/tmuxinator", use:"completion/tmuxinator.zsh", defer:3, if:"[[ $(command -v tmuxinator) ]]"
-
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "djui/alias-tips"
 zplug "paulirish/git-open", as:plugin, if:"[[ $(command -v git) ]]"
-
 zplug "mafredri/zsh-async", on:sindresorhus/pure
 zplug "sindresorhus/pure", use:pure.zsh, defer:3
-
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
-
 zplug "sparsick/ansible-zsh"
 zplug "gretzky/auto-color-ls"
 zplug "MichaelAquilina/zsh-you-should-use"
 zplug "voronkovich/gitignore.plugin.zsh"
-
 zplug "plugins/git",   from:oh-my-zsh
-
 zplug "plugins/vi-mode",   from:oh-my-zsh
 
 #theme
 zplug "b-ryan/powerline-shell"
-
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 
 function powerline_precmd() {
@@ -148,12 +138,6 @@ fi
 zplug load
 
 alias lc='colorls -lA --sd'
-
-# load tmux by default
-# if command -v tmux>/dev/null; then
-#   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
-# fi
-
 alias tmux="TERM=screen-256color-bce tmux"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -169,7 +153,6 @@ if [[ $(command -v rbenv) ]]; then
 fi
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-
 [[ -f "${HOME}/.aliases" ]] && source "${HOME}/.aliases"
 [[ -f "${HOME}/.completions" ]] && source "${HOME}/.completions"
 [[ -f "${HOME}/.extra" ]] && source "${HOME}/.extra"

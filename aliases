@@ -1,16 +1,13 @@
 alias git=hub
+alias d=docker
+alias dc='docker compose'
 
 ###python
 alias pup='pip install -r requirements.txt'
-
-##virtual env
 alias venv='APP_NAME=`basename "$PWD"`&& source ~/.virtualenv/$APP_NAME/bin/activate'
-
 alias cvenv='APP_NAME=`basename "$PWD"`&& rm -rf ~/.virtualenv/$APP_NAME && virtualenv -p `which python3` ~/.virtualenv/$APP_NAME  && ln -sf /System/Library/Frameworks/Python.framework/Versions/3.6/Extras/lib/python/OpenSSL ~/.virtualenv/$APP_NAME/lib/python3.6/ && source ~/.virtualenv/$APP_NAME/bin/activate'
-
 alias cvvenv='APP_NAME=`basename $(dirname "$PWD")`&& rm -rf ~/.virtualenv/$APP_NAME && virtualenv -p `which python3` ~/.virtualenv/$APP_NAME && source ~/.virtualenv/$APP_NAME/bin/activate'
 alias ocvenv='APP_NAME=`basename "$PWD"`&& rm -rf ~/.virtualenv/$APP_NAME && virtualenv -p `which python2.7` ~/.virtualenv/$APP_NAME  && ln -sf /System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/OpenSSL ~/.virtualenv/$APP_NAME/lib/python2.7/ && source ~/.virtualenv/$APP_NAME/bin/activate'
-
 alias jvenv=jump_and_venv
 
 #ssl
@@ -23,7 +20,6 @@ alias clr='lein repl'
 alias clat='lein auto test'
 alias cld='lein deps'
 
-
 #go notifier
 alias gonotifier='./gonotifier && fswatch . ./gonotifier'
 
@@ -35,7 +31,3 @@ alias aws_ssh=f_aws_ssh
 alias aws_instances_id=f_aws_instance_id
 alias aws_list_instances=f_aws_list_instances
 alias aws_delete_instance_profile=f_aws_delete_instance_profile
-
-alias hrz_magic='ecrlogin hrz-dev && make build && make push'
-
-
