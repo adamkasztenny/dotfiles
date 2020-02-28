@@ -1,16 +1,13 @@
 call plug#begin('~/.vim/plugged')
 set nocompatible
 
-Plug 'w0rp/ale'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
 Plug 'sbdchd/neoformat'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'ryanoasis/vim-devicons'
-Plug 'hashivim/vim-terraform'
-Plug 'juliosueiras/vim-terraform-completion'
 Plug 'dyng/ctrlsf.vim'
-Plug 'mbbill/undotree'
-Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary' " g cc to comment gcc to uncomment
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -26,10 +23,6 @@ Plug 'neomake/neomake'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'jodosha/vim-godebug'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'ryanoasis/vim-devicons'
 
 let g:python3_host_prog = '/Users/lucas/.pyenv/shims/python3'
 call plug#end()
